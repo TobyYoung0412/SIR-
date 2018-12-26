@@ -89,6 +89,39 @@ function start_Callback(hObject, eventdata, handles)
 % hObject    handle to start (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+H = handles.H;
+p = handles.start_node;
+parent_node = zeros(1,H*p);
+i = 1;
+[~,n] = size(parent_node);
+while i <= n
+    r = randi([1,H]);
+    if (~ismember(r,parent_node))
+        parent_node(i) = r;
+        i = i+1;
+    end
+end 
+
+[inf,nisum,rec,infsum] = sir_simulation(handles.WS_world,parent_node,handles.inf_prob,handles.rec_prob,handles.step);
+    
+plot(handles.axes1,inf, 'b*:');
+xlabel('Infected nodes');
+grid on
+
+plot(handles.axes2,infsum,'b*:');
+xlabel('Sum of infected nodes');
+grid on
+
+plot(handles.axes3,nisum,'b*:');
+xlabel('Infected nodes at each time step');
+grid on
+
+plot(handles.axes4,rec,'b*:');
+xlabel('Recovered nodes');
+grid on
+
+
+
 
 
 
@@ -274,7 +307,7 @@ function startnode_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of startnode as text
 %        str2double(get(hObject,'String')) returns contents of startnode as a double
-start_node = str2num(get(hObject,'String'))
+start_node = str2double(get(hObject,'String'));  
 handles.start_node = start_node;
 guidata(hObject,handles);
 
@@ -290,7 +323,7 @@ function startnode_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-start_node = str2num(get(hObject,'String'));
+start_node = str2double(get(hObject,'String'));
 handles.start_node = start_node;
 guidata(hObject,handles);
 
@@ -333,6 +366,8 @@ H = handles.H;
 k = handles.k;
 beta = handles.b;
 figure(2)
-h2 = WattsStrogatz(H,k,beta);
-plot(h2,'NodeColor','k','EdgeAlpha',0.1);
+WS_world = WattsStrogatz(H,k,beta);
+handles.WS_world = WS_world;
+plot(graph(WS_world),'NodeColor','k','EdgeAlpha',0.1);
 title('Watts-Strogatz Graph','Interpreter','latex');
+guidata(hObject,handles);

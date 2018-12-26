@@ -1,4 +1,4 @@
-function[inf,nisum,rec,infsum] = sir_simulation(A,parent_node,prob,immunized,r,num_of_steps)
+function[inf,nisum,rec,infsum] = sir_simulation(A,parent_node,prob,r,num_of_steps)
 %OUTPUT
 %inf - number of infected
 %nisum - number of infected nodes in each iteration

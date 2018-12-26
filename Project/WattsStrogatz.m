@@ -26,5 +26,5 @@ for source=1:N
     plot(temp,'NodeColor','k','EdgeAlpha',0.1);
 end
 
-h = graph(s,t);
+h = full(adjacency(graph(s,t)));
 end
