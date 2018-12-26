@@ -5,13 +5,13 @@
 %Reference: Collective dynamic of 'small-world' networks Fig. 1
 %====================================================
 
-%% ÉèÖÃÍøÂçµÄ»ù±¾²ÎÊı
-N = 10000; %ÍøÂç¹æÄ£
-K = 5; %½Úµãµ¥²àµÄÁÚ¾ÓÊıÎªK
-%p = 10.^(-4); %ÖØÁ¬¸ÅÂÊp
-node_neighbors = cell(N, 1); %±£´æÃ¿¸ö½ÚµãµÄÁÚ¾Ó
+%% è®¾ç½®ç½‘ç»œçš„åŸºæœ¬å‚æ•°
+N = 10000; %ç½‘ç»œè§„æ¨¡
+K = 5; %èŠ‚ç‚¹å•ä¾§çš„é‚»å±…æ•°ä¸ºK
+p = 10.^(-4); %é‡è¿æ¦‚ç‡p
+node_neighbors = cell(N, 1); %ä¿å­˜æ¯ä¸ªèŠ‚ç‚¹çš„é‚»å±…
 
-%% ²úÉú¹æ·¶ÍøÂç£¬¼´Ã¿¸ö½ÚµãÓë×óÓÒK¸ö½ÚµãÏàÁ¬
+%% äº§ç”Ÿè§„èŒƒç½‘ç»œï¼Œå³æ¯ä¸ªèŠ‚ç‚¹ä¸å·¦å³Kä¸ªèŠ‚ç‚¹ç›¸è¿
 for i = 1 : N
     A = zeros(2*K, 1);
     for j = 1 : K
@@ -29,36 +29,35 @@ for i = 1 : N
     node_neighbors{i,1} = A;
 end
 
-%% ¹æ·¶ÍøÂçËùÓĞ±ßÒÔ¸ÅÂÊpËæ»úÖØÁ¬
+%% è§„èŒƒç½‘ç»œæ‰€æœ‰è¾¹ä»¥æ¦‚ç‡péšæœºé‡è¿
 for i = 1 : N
     for j = 1 : 2*K
-        p_link = unifrnd(0,1); %²úÉúÒ»¸öÖØÁ¬¸ÅÂÊ
-        tempt = node_neighbors{i}(1);%»ñÈ¡µ±Ç°¿ÉÄÜÒª¶Ï¿ªµÄ½Úµã
+        p_link = unifrnd(0,1); %äº§ç”Ÿä¸€ä¸ªé‡è¿æ¦‚ç‡
+        tempt = node_neighbors{i}(1);%è·å–å½“å‰å¯èƒ½è¦æ–­å¼€çš„èŠ‚ç‚¹
         if isnan(tempt)
             node_neighbors{i}(1)=[];
             continue;
         end
-        %²»·¢ÉúÖØÁ¬£¬½«¸Ã½Úµã·Åµ½ÁÚ¾ÓµÄ×îºó
+        %ä¸å‘ç”Ÿé‡è¿ï¼Œå°†è¯¥èŠ‚ç‚¹æ”¾åˆ°é‚»å±…çš„æœ€å
         if p_link >= p
             node_neighbors{i}= [node_neighbors{i}(2:size(node_neighbors{i},1));tempt];
         end
-        %·¢ÉúÖØÁ¬£¬Ñ°ÕÒÖØÁ¬µÄ½Úµã£¬²»·¢ÉúÖØ±ßÓë×Ô±ß
+        %å‘ç”Ÿé‡è¿ï¼Œå¯»æ‰¾é‡è¿çš„èŠ‚ç‚¹ï¼Œä¸å‘ç”Ÿé‡è¾¹ä¸è‡ªè¾¹
         if p_link < p
             e = find(node_neighbors{tempt}==i);
             node_neighbors{i}(1) = [];
-            node_neighbors{tempt}(e) = nan; %²»ÄÜÉ¾µô£¬ÒòÎª»áÓ°Ïì½ÚµãµÄ³öÕ»Ë³Ğò
-            v_link = unidrnd(N); %Ñ¡ÔñÒ»¸öÖØÁ¬µÄ½Úµã
-            while v_link==i||ismember(v_link,node_neighbors{i}) %·ÀÖ¹ÖØ±ß»òÕß×Ô±ß
+            node_neighbors{tempt}(e) = nan; %ä¸èƒ½åˆ æ‰ï¼Œå› ä¸ºä¼šå½±å“èŠ‚ç‚¹çš„å‡ºæ ˆé¡ºåº
+            v_link = unidrnd(N); %é€‰æ‹©ä¸€ä¸ªé‡è¿çš„èŠ‚ç‚¹
+            while v_link==i||ismember(v_link,node_neighbors{i}) %é˜²æ­¢é‡è¾¹æˆ–è€…è‡ªè¾¹
                 v_link = unidrnd(N);
             end
-            node_neighbors{i} = [node_neighbors{i}; v_link]; %½«ÖØÁ¬½Úµã·ÅÈëÁÚ¾Ó±íÖĞ
+            node_neighbors{i} = [node_neighbors{i}; v_link]; %å°†é‡è¿èŠ‚ç‚¹æ”¾å…¥é‚»å±…è¡¨ä¸­
             node_neighbors{v_link} = [node_neighbors{v_link}; i];
         end
     end
 end
-% È¥³ıÁÚ¾Ó±íÖĞµÄnanÊı¾İ£¬ÒòÎªÕâĞ©µãÆäÊµÒÑ¾­¶Ï¿ª
+% å»é™¤é‚»å±…è¡¨ä¸­çš„nanæ•°æ®ï¼Œå› ä¸ºè¿™äº›ç‚¹å…¶å®å·²ç»æ–­å¼€
 for i = 1 : N
     node_neighbors{i}(isnan(node_neighbors{i})) = [];
 end
-
 
