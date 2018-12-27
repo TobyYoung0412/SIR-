@@ -134,27 +134,20 @@ end
 
 [inf,nisum,rec,infsum] = sir_simulation(handles.WS_world,parent_node,handles.inf_prob,handles.rec_prob,handles.step);
 
-axes(handles.axes1);
-% plot(handles.axes1,inf, 'b*:');
-plot(inf, 'b*:');
+axes(handles.axes1)
+plot(handles.axes1,inf, 'b*:');
 xlabel('感染节点数');
 grid on
 
-axes(handles.axes2);
-% plot(handles.axes2,infsum,'b*:');
-plot(infsum, 'b*:');
+plot(handles.axes2,infsum,'b*:');
 xlabel('被感染结点总数');
 grid on
 
-axes(handles.axes3);
-% plot(handles.axes3,nisum,'b*:');
-plot(nisum, 'b*:');
+plot(handles.axes3,nisum,'b*:');
 xlabel('每步被感染的节点数');
 grid on
 
-axes(handles.axes4);
-% plot(handles.axes4,rec,'b*:');
-plot(rec, 'b*:');
+plot(handles.axes4,rec,'b*:');
 xlabel('被治愈的结点');
 grid on
 
