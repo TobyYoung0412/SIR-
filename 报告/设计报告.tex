@@ -1,0 +1,81 @@
+\documentclass[supercite]{HustGraduPaper}
+%进行个人信息设置
+\title{多传感器融合技术}
+\author{杨金昊} %作者姓名
+\date{\today} %日期，默认当日
+\school{自动化学院} %院系名称
+\classnum{自卓1601} %专业班级
+\stunum {U201614480} %学号
+\instructor{张朴} %指导教师姓名
+
+%添加自己要用的其他宏包
+\usepackage{xltxtra}
+\usepackage{bm}
+
+\begin{document}
+	%生成标题页 \maketitle[可选参数]
+	%可选参数：
+	%logo color=green/black 华中科技大学字样的颜色，绿色或者黑色，默认绿色
+	%line length=12em 填写信息处横线的长度，默认12em
+	%line font=huawenzhongsong 填写信息的字体，默认huawenzhongsong
+	\maketitle[logo color= black]
+
+	\clearpage %结束上一页
+	\pagenumbering{Roman} %摘要页码为大写罗马数字
+
+	\tableofcontents
+	
+	%生成目录 \tableofcontents[可选参数]
+	%可选参数：
+	%pagenum=yes/no/true/false 目录是否显示页码，默认为false
+	%toc in toc=yes/no/true/false 目录中是否有目录及其页码，默认为false
+	%level=4 目录级数，默认是4，即显示到subsubsubsection
+	%section indent=0em 目录第一级的缩进，默认是0em
+	%subsection indent=1.5em 目录第二级的缩进，默认是1.5em
+	%subsubsection indent=3.8em 目录第三级的缩进，默认是3.8em
+	%subsubsubsection indent=7em 目录第四级的缩进，默认是7em
+	%paragraph indent=11em 目录第五级的缩进，默认是11em
+	%subparagraph indent=13em 目录第六级的缩进，默认13em
+	%indent=normal/noindent/hustnoindent/sameforsubandsubsub 快速缩进设置，具体见文档
+	%dot sep=4.5 目录点间距，默认4.5
+	%section dot sep=4.5 目录第一级的点间距，默认是4.5
+	%subsection dot sep=4.5 目录第二级的点间距，默认是4.5
+	%subsubsection dot sep=4.5 目录第三级的点间距，默认是4.5
+	%subsubsubsection dot sep=4.5 目录第四级的点间距，默认是4.5
+	%paragraph dot sep=4.5 目录第五级的点间距，默认是4.5
+	%subparagraph dot sep=4.6 目录第六级的点间距，默认是4.5
+	%请注意在合适的位置放置\pagenumbering{numstyle}使用新的页码
+	\clearpage%结束上一页
+	\pagenumbering{arabic} %正文页码为阿拉伯数字
+
+	% 正文内容
+	\section{试题建模}
+
+	\subsection{试题描述}
+		大多数传染病如天花、流感、肝炎、麻疹等治愈后均有很强的免疫力，所以病愈的人既非健康者（易感染者），也非病人（已感染者），他们已经退出传染系统。
+
+	\subsection{模型假设}
+	\begin{enumerate}
+		\item H1N1流感传播期内，总人数为$N$不变，既不考虑生死，也不考虑迁移，人群分为易感染者$S$，发病人群$I$和退出人群 $R$（包括死亡者和治愈者）三类，时刻$r$内这三类人在总人数中所占比例分别为$s(t)$、$i(t)$、$r(t)$。
+		\item 每个病人每天有效接触的平均人数是常数$\lambda$，称日接触率。当病人与健康者有效接触时，使健康者受感染变为病人。根据假设，每个病人每天可使$\lambda_s(t)$个健康者变为病人，因为病人数为$N_i(t)$．所以每天共有$\lambda N s(t) i(t)$个健康者被感染。
+		\item 病人每天被治愈的占病人总数的比例为$\mu$，称为日治愈率，治愈的病人具有了免疫力，即治愈后不再会成为二次患者。
+		\item $s(t)$、$i(t)$、$r(t)$之和是一个常数$1$。
+	\end{enumerate}
+
+	\subsection{建模过程}
+	\subsubsection{初始模型}
+	在这个初始模型中,假设时刻$t$的病人数$i(t)$是连续可谓的函数,并且每天每个病人有效接触的人数为常数$\lambda$,考察$t$到$t+\delta t$病人人数的增加就可得$$x(t+\delta t)-x(t) = \lambda x(t) \delta t$$
+	在设$t = 0$时有$x_0$有个病人,即可得微分方程$$\frac{dx}{dt} = \lambda x, \quad x(0)=x_0$$
+
+
+	\section{试题中实现的关键难点}
+
+	\section{程序运行指南}
+
+	\section{程序运行分析实例}
+
+
+	\nocite{*}
+
+	\bibliography{Bibs/mybib}
+\end{document}

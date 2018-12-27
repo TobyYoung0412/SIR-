@@ -22,7 +22,7 @@ function varargout = simulation(varargin)
 
 % Edit the above text to modify the response to help simulation
 
-% Last Modified by GUIDE v2.5 28-Dec-2018 00:54:43
+% Last Modified by GUIDE v2.5 28-Dec-2018 02:48:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,7 +80,7 @@ function axes1_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes1
-xlabel('感染节点数');
+xlabel('当前被感染人数');
 grid on
 
 % --- Executes during object creation, after setting all properties.
@@ -90,7 +90,7 @@ function axes2_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes2
-xlabel('被感染结点总数');
+xlabel('被感染过的总人数');
 grid on
 
 % --- Executes during object creation, after setting all properties.
@@ -100,7 +100,7 @@ function axes3_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes2
-xlabel('每步被感染的节点数');
+xlabel('单位时刻被感染的人数');
 grid on
 
 % --- Executes during object creation, after setting all properties.
@@ -110,7 +110,7 @@ function axes4_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes2
-xlabel('被治愈的结点');
+xlabel('治愈的人数');
 grid on
 
 
@@ -134,30 +134,33 @@ end
 
 [inf,nisum,rec,infsum] = sir_simulation(handles.WS_world,parent_node,handles.inf_prob,handles.rec_prob,handles.step);
 
+rec = rec + handles.H*(1-handles.start_node-handles.sen);
+
 axes(handles.axes1);
 % plot(handles.axes1,inf, 'b*:');
 plot(inf, 'b*:');
-xlabel('感染节点数');
+xlabel('当前被感染人数');
 grid on
 
 axes(handles.axes2);
 % plot(handles.axes2,infsum,'b*:');
 plot(infsum, 'b*:');
-xlabel('被感染结点总数');
+xlabel('被感染过的总人数');
 grid on
 
 axes(handles.axes3);
 % plot(handles.axes3,nisum,'b*:');
 plot(nisum, 'b*:');
-xlabel('每步被感染的节点数');
+xlabel('单位时刻被感染的人数');
 grid on
 
 axes(handles.axes4);
 % plot(handles.axes4,rec,'b*:');
 plot(rec, 'b*:');
-xlabel('被治愈的结点');
+xlabel('治愈的人数');
 grid on
 
+guidata(hObject,handles);
 
 function population_Callback(hObject, eventdata, handles)
 % hObject    handle to population (see GCBO)
@@ -384,7 +387,7 @@ function ode_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 ts = 0:1:handles.step;
-x0 = [handles.H*(1-handles.start_node),handles.H*handles.start_node,0];
+x0 = [handles.H*handles.sen,handles.H*handles.start_node,handles.H*(1-handles.start_node-handles.sen)];
 [t,x] = ode45(@(t,x) sirmodel(t,x,handles.inf_prob,handles.rec_prob), ts, x0);
 figure(3);
 plot(t,x(:,1),t,x(:,2),'.',t,x(:,3),'*');
@@ -401,3 +404,32 @@ function menu_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 close all;
 UI;
+
+
+
+function sensi_Callback(hObject, eventdata, handles)
+% hObject    handle to sensi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of sensi as text
+%        str2double(get(hObject,'String')) returns contents of sensi as a double
+sen = str2double(get(hObject,'String'));
+handles.sen = sen;
+guidata(hObject,handles);
+
+
+% --- Executes during object creation, after setting all properties.
+function sensi_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to sensi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+sen = str2double(get(hObject,'String'));
+handles.sen = sen;
+guidata(hObject,handles);

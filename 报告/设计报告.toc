@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}试题建模}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}试题描述}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}模型假设}{1}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}建模过程}{1}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}初始模型}{1}{subsubsection.1.3.1}
+\contentsline {section}{\numberline {2}试题中实现的关键难点}{2}{section.2}
+\contentsline {section}{\numberline {3}程序运行指南}{2}{section.3}
+\contentsline {section}{\numberline {4}程序运行分析实例}{2}{section.4}
