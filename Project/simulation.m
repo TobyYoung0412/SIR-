@@ -100,7 +100,7 @@ function axes3_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes2
-xlabel('单位时刻被感染的人数');
+xlabel('新增患病人数');
 grid on
 
 % --- Executes during object creation, after setting all properties.
@@ -110,7 +110,7 @@ function axes4_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: place code in OpeningFcn to populate axes2
-xlabel('治愈的人数');
+xlabel('被治愈的人数');
 grid on
 
 
@@ -119,7 +119,9 @@ function start_Callback(hObject, eventdata, handles)
 % hObject    handle to start (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-H = handles.H;
+
+%将治愈者移出仿真总人数,并构建初始被感染者
+H = handles.H*(handles.start_node+handles.sen);
 p = handles.start_node;
 parent_node = zeros(1,H*p);
 i = 1;
@@ -132,32 +134,30 @@ while i <= n
     end
 end 
 
+% SIR模型仿真
 [inf,nisum,rec,infsum] = sir_simulation(handles.WS_world,parent_node,handles.inf_prob,handles.rec_prob,handles.step);
 
-rec = rec + handles.H*(1-handles.start_node-handles.sen);
+% rec = rec + handles.H*(1-handles.start_node-handles.sen);
 
+% 绘图
 axes(handles.axes1);
-% plot(handles.axes1,inf, 'b*:');
 plot(inf, 'b*:');
 xlabel('当前被感染人数');
 grid on
 
 axes(handles.axes2);
-% plot(handles.axes2,infsum,'b*:');
 plot(infsum, 'b*:');
 xlabel('被感染过的总人数');
 grid on
 
 axes(handles.axes3);
-% plot(handles.axes3,nisum,'b*:');
 plot(nisum, 'b*:');
-xlabel('单位时刻被感染的人数');
+xlabel('新增患病人数');
 grid on
 
 axes(handles.axes4);
-% plot(handles.axes4,rec,'b*:');
 plot(rec, 'b*:');
-xlabel('治愈的人数');
+xlabel('被治愈的人数');
 grid on
 
 guidata(hObject,handles);
@@ -373,6 +373,7 @@ function gen_network_Callback(hObject, eventdata, handles)
 H = handles.H;
 k = handles.k;
 beta = handles.b;
+% 在新窗口进行小世界网络的展现
 figure(2)
 WS_world = WattsStrogatz(H,k,beta);
 handles.WS_world = WS_world;
@@ -386,14 +387,17 @@ function ode_Callback(hObject, eventdata, handles)
 % hObject    handle to ode (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+% 设置仿真步长,以及初始值
 ts = 0:1:handles.step;
 x0 = [handles.H*handles.sen,handles.H*handles.start_node,handles.H*(1-handles.start_node-handles.sen)];
+%进行数值仿真
 [t,x] = ode45(@(t,x) sirmodel(t,x,handles.inf_prob,handles.rec_prob), ts, x0);
+%在新窗口绘图
 figure(3);
 plot(t,x(:,1),t,x(:,2),'.',t,x(:,3),'*');
 xlabel('时间/天');
 ylabel('比例');
-legend('易感节点','传播节点','移出节点');
+legend('易感人数','患病人数','治愈人数');
 title('传染病SIR模型');
 
 

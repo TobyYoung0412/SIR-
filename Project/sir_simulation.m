@@ -1,25 +1,19 @@
 function[inf,nisum,rec,infsum] = sir_simulation(A,parent_node,prob,r,num_of_steps)
 %OUTPUT
-%inf - number of infected
-%nisum - number of infected nodes in each iteration
-%rec - number of recovered nodes in each iteration
-%infsum - total number of infected
+%inf - 当前被感染的人数
+%nisum - 新被感人的人数
+%rec - 被治愈的人数
+%infsum - 被感染的总人数
 
 
 %INPUT
-% num_of_steps - maximum number of iterations. If all the nodes get recovered before that, the simulation will stop
-% prob - the probability that the node will be infected from already infected neighboring node
-% r - the recovery rate
-% parent_node - the ID of the node where infection starts. If parent_node is an array of IDs,
-%the infection will start in all of the nodes listed in parent_node. For
-%example: parent_node = [1 5 7] means the infection will start in nodes 1 5 and 7 
-% immunized - the custom probability of virus transmission to certain nodes could be specified if needed.
-%For custom transmission probabilities, the vector "immunized" should have the size of number of nodes where
-%each entry is the customized probability of transmission to certain node. If left empty, the p is the same
-%for all nodes. For example, if network has 5 nodes and we want to
-%customize the probabilities of transmission, then immunized vector should
-%have the following form: immunized = [0.5 0.5 0.7 0.5 0.9]
+% num_of_steps - 最大仿真步数,如果在达到最大仿真步数之前,所有结点都被治愈将结束仿真.
+% prob - 每个节点被传染的概率
+% r - 治愈概率
+% parent_node - 开始时刻被感染你的人数,parent_node为起始结点的ID,传染病将从其中结点进行传播
+%example: parent_node = [1 5 7] 意味着传染将从 1 5 7 三个结点开始.
 
+% 生成开始时全图的索引数组,其中x==1为被感染者,x==0为敏感人群.
 num_of_nodes = size(A,1);
 x = zeros(1,num_of_nodes);
 x(parent_node) = 1;
@@ -31,6 +25,7 @@ nisum = [];
 r_sequence = [];
 
     for i = 1:num_of_steps 
+        % 第一步进行初始化
         if i == 1
             z = x;
             ni = zeros(1,num_of_nodes);
@@ -38,18 +33,26 @@ r_sequence = [];
             recovered = ni';
             z_all(1,:) = z;
         else
+            % 逐步模拟进行仿真
+            % 获取新的总感染结点和新的被感染结点
             [z,ni] = sir_infection_step(A,z,all_prob);
             z_all(i,:) = z;
+            % 获取治愈后的新的全部节点状态和新被治愈的结点
             [nA,nr] = sir_recovery_step(A,z_all(i-1,:),r);
             A = nA;
+            % 统计总的被治愈的结点
             recovered = recovered + nr;
             recovered(recovered > 1)=1;
         end
+        
+        % 汇总当前时刻数据
         inf(i) = sum(z(z==1));
         nisum(i) = sum(ni(ni==1));
         rec(i) = sum(recovered(recovered==1));
         infsum(i) = sum(z(z==1));
         inf(i) = inf(i)-rec(i);
+        
+        % 感染者为0结束仿真
         if i > 1 && inf(i) == 0
             break
         end

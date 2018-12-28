@@ -1,7 +1,13 @@
 function h = WattsStrogatz(N,K,beta)
+% OUTPUT
 % H = WattsStrogatz(N,K,beta)返回由N个节点，N*K条边，节点度数2*K构造，
 % 以beta概率重连边得到的WS模型
 % beta = 0为圆形，beta = 1为随机图
+
+% INPUT
+% N - 结点总数
+% K - 每个节点的边数
+% beta - 每条边的重连概率
 
 % 连接每个节点和他后向K临近的节点，该步骤构造结果为圆形
 s = repelem((1:N)',1,K); % 源节点矩阵
