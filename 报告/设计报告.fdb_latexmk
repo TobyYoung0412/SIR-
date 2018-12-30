@@ -1,17 +1,17 @@
 # Fdb version 3
-["bibtex 设计报告"] 1545973884 "设计报告.aux" "设计报告.bbl" "设计报告" 1545973890
+["bibtex 设计报告"] 1546004264 "设计报告.aux" "设计报告.bbl" "设计报告" 1546004271
   "Bibs/mybib.bib" 0 -1 0 ""
   "gbt7714-2005.bst" 0 -1 0 ""
-  "设计报告.aux" 1545973888 4996 435faf3c694b95909d4e287f3ef7efb4 ""
+  "设计报告.aux" 1546004268 5468 91150fa939c6b3a8ee4f93736ca9871e ""
   (generated)
   "设计报告.blg"
   "设计报告.bbl"
-["xdvipdfmx"] 1545973888 "设计报告.xdv" "设计报告.pdf" "设计报告" 1545973890
-  "设计报告.xdv" 1545973888 268620 e0ef66a4793210844c396d53a0f4fb17 "xelatex"
+["xdvipdfmx"] 1546004268 "设计报告.xdv" "设计报告.pdf" "设计报告" 1546004271
+  "设计报告.xdv" 1546004268 274012 724ab3d8b88edd5ebf6acf158459f1e9 "xelatex"
   (generated)
   "设计报告.pdf"
-["xelatex"] 1545973884 "设计报告.tex" "设计报告.xdv" "设计报告" 1545973890
-  "/dev/null" 1545962451 0 d41d8cd98f00b204e9800998ecf8427e ""
+["xelatex"] 1546004264 "设计报告.tex" "设计报告.xdv" "设计报告" 1546004271
+  "/dev/null" 1545994818 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/media/toby/PROGRAM/Ubuntu_Applications/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/media/toby/PROGRAM/Ubuntu_Applications/texlive/2018/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1480098689 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/media/toby/PROGRAM/Ubuntu_Applications/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -156,14 +156,14 @@
   "Figures/simu.png" 1545968111 33342 7725ee580455a8095e772fdc47329a13 ""
   "HUSTBlack.eps" 1540137090 46755 4ff2ab0d531a314a9e76fd29d5ebae75 ""
   "HustGraduPaper.cls" 1541157626 23705 af0c868bd88fe12e36572c87a4827139 ""
-  "设计报告.aux" 1545973888 4996 435faf3c694b95909d4e287f3ef7efb4 ""
+  "设计报告.aux" 1546004268 5468 91150fa939c6b3a8ee4f93736ca9871e ""
   "设计报告.bbl" 0 -1 0 "bibtex 设计报告"
-  "设计报告.out" 1545973888 3370 f904a8e0c214486883fe9b50540c3479 ""
-  "设计报告.tex" 1545973875 21201 0677d498741d7167ed7871123a7b7f75 ""
-  "设计报告.toc" 1545973888 2803 b30662ddf81d52e27a9901c12e1c0076 ""
+  "设计报告.out" 1546004268 3590 b41ef8df55f55368072046b1b582ea00 ""
+  "设计报告.tex" 1546004259 21758 30021eb080d8960ddbecda955e7345af ""
+  "设计报告.toc" 1546004268 3181 10cdb44b1336ddc59452c36108bd206e ""
   (generated)
   "设计报告.log"
   "设计报告.aux"
-  "设计报告.xdv"
   "设计报告.out"
   "设计报告.toc"
+  "设计报告.xdv"
